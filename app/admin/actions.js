@@ -211,3 +211,75 @@ export async function hapusProduk(id) {
   revalidatePath(`/produk/${idProduk}`);
   redirect("/admin");
 }
+
+export async function buatDeskripsiProduk(prevState, formData) {
+  const supabase = await buatClientSesi();
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  if (userError || !user) {
+    return { error: "Anda harus login terlebih dahulu." };
+  }
+
+  const nama = String(formData.get("nama") || "").trim().slice(0, 100);
+  const kategori = String(formData.get("kategori") || "").trim().slice(0, 100);
+
+  if (!nama || !kategori) {
+    return { error: "Isi nama dan kategori produk sebelum membuat deskripsi." };
+  }
+
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    return { error: "GEMINI_API_KEY belum disetel di environment variable." };
+  }
+
+  try {
+    const response = await fetch(
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-goog-api-key": apiKey,
+        },
+        body: JSON.stringify({
+          contents: [
+            {
+              parts: [
+                {
+                  text: `Buat deskripsi produk UMKM dalam bahasa Indonesia, 2-3 kalimat dan maksimal 60 kata. Gunakan nada informatif, jangan membuat klaim yang tidak diberikan, dan kembalikan hanya deskripsinya. Nama produk: ${JSON.stringify(nama)}. Kategori: ${JSON.stringify(kategori)}.`,
+                },
+              ],
+            },
+          ],
+          generationConfig: { maxOutputTokens: 150 },
+        }),
+        signal: AbortSignal.timeout(15000),
+      }
+    );
+
+    if (!response.ok) {
+      return { error: "Gemini gagal membuat deskripsi. Silakan coba lagi." };
+    }
+
+    const hasil = await response.json();
+    const deskripsi = hasil.candidates?.[0]?.content?.parts
+      ?.map((bagian) => bagian.text || "")
+      .join("")
+      .trim()
+      .slice(0, 1200);
+
+    if (!deskripsi) {
+      return { error: "Gemini tidak menghasilkan deskripsi. Silakan coba lagi." };
+    }
+
+    return { deskripsi };
+  } catch (error) {
+    if (error.name === "TimeoutError" || error.name === "AbortError") {
+      return { error: "Gemini terlalu lama merespons. Silakan coba lagi." };
+    }
+    return { error: "Tidak dapat menghubungi Gemini. Silakan coba lagi." };
+  }
+}

@@ -240,6 +240,24 @@ Menautkan /manifest.webmanifest melalui metadata aplikasi.**
 
 **Perbaikan:**
 
+## US-14 Deskripsi produk dibuat AI
+
+**Prompt: Baca docs/user-stories.md bagian US-14.
+
+Tambahkan tombol di FormProduk untuk membuat deskripsi dari nama dan kategori memakai Gemini API. Panggil Gemini melalui Server Action dengan GEMINI_API_KEY server-only, periksa sesi admin, validasi input, batasi waktu permintaan, dan tampilkan error yang jelas. Masukkan hasil ke kolom deskripsi sebelum produk disimpan tanpa memasang paket baru.**
+
+**Hasil: Pekerjaan untuk US-14: Deskripsi produk dibuat AI telah selesai.
+
+File yang Dibuat dan Diubah
+app/admin/actions.js:
+Menambahkan Server Action buatDeskripsiProduk yang memeriksa sesi admin, memvalidasi nama dan kategori, memanggil Gemini melalui REST dengan batas waktu, memvalidasi respons, serta mengembalikan deskripsi atau pesan error.
+components/FormProduk.jsx:
+Menambahkan tombol "Buat deskripsi dengan AI", status proses, pesan error, dan pengisian textarea dari hasil Gemini sebelum produk disimpan.
+.env.example dan README.md:
+Mendokumentasikan GEMINI_API_KEY sebagai environment variable server-only dan cara menyiapkannya.**
+
+**Perbaikan:**
+
 ## Debugging dan fitur bonus
 
 Tambahkan bagian baru untuk setiap error yang kamu perbaiki atau fitur bonus yang kamu kerjakan.
