@@ -123,6 +123,23 @@ Menghapus komponen dan impor CatatanBelumAktif dari halaman /admin.**
 
 **Perbaikan:**
 
+## US-07 List produk
+
+**Prompt: Baca docs/user-stories.md bagian US-07.
+
+Ubah app/admin/page.jsx supaya daftar produk diambil dari tabel "produk" di Supabase memakai sesi admin, bukan dari lib/data-contoh.js. Tampilkan pesan yang jelas jika data gagal dimuat atau belum ada produk. Pertahankan tampilan dan komponen yang sudah ada.**
+
+**Hasil: Pekerjaan untuk US-07: List produk telah selesai.
+
+File yang Diubah
+app/admin/page.jsx:
+Mengambil daftar produk dari tabel produk di Supabase menggunakan koneksi sesi admin.
+Menghapus penggunaan data contoh dari halaman admin.
+Menampilkan pesan error jika query gagal dan pesan "Belum ada produk" jika tabel kosong.
+Tetap menampilkan daftar dengan komponen TabelProduk yang sudah ada.**
+
+**Perbaikan:**
+
 ## Debugging dan fitur bonus
 
 Tambahkan bagian baru untuk setiap error yang kamu perbaiki atau fitur bonus yang kamu kerjakan.
