@@ -140,6 +140,24 @@ Tetap menampilkan daftar dengan komponen TabelProduk yang sudah ada.**
 
 **Perbaikan:**
 
+## US-08 Tambah produk
+
+**Prompt: Baca docs/user-stories.md bagian US-08.
+
+Buat form di /admin/produk/baru menyimpan produk ke tabel "produk" di Supabase melalui Server Action. Validasi nama dan harga di server, periksa bahwa admin sudah login sebelum menyimpan, lalu arahkan kembali ke /admin. Tampilkan pesan yang jelas jika input atau penyimpanan gagal. Hapus CatatanBelumAktif dari halaman ini.**
+
+**Hasil: Pekerjaan untuk US-08: Tambah produk telah selesai.
+
+File yang Diubah
+app/admin/actions.js:
+Menambahkan Server Action tambahProduk yang memeriksa sesi admin, memvalidasi nama dan harga, menyimpan produk ke Supabase, memperbarui halaman katalog dan admin, lalu mengarahkan ke /admin.
+app/admin/produk/baru/page.jsx:
+Menghubungkan form ke Server Action tambahProduk, menampilkan pesan error, dan menghapus CatatanBelumAktif.
+components/FormProduk.jsx:
+Menambahkan prop action agar form yang sama dapat menjalankan Server Action tanpa mengubah tampilannya.**
+
+**Perbaikan:**
+
 ## Debugging dan fitur bonus
 
 Tambahkan bagian baru untuk setiap error yang kamu perbaiki atau fitur bonus yang kamu kerjakan.

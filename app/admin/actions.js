@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { buatClientSesi } from "@/lib/supabase/server";
 
@@ -84,4 +85,44 @@ export async function gantiPassword(prevStateOrFormData, maybeFormData) {
   }
 
   return { success: "Password berhasil diperbarui." };
+}
+
+export async function tambahProduk(formData) {
+  const supabase = await buatClientSesi();
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  if (userError || !user) {
+    redirect("/admin/login");
+  }
+
+  const nama = String(formData.get("nama") || "").trim();
+  const hargaInput = formData.get("harga");
+  const harga = Number(hargaInput);
+
+  if (!nama) {
+    redirect("/admin/produk/baru?error=Nama%20produk%20wajib%20diisi.");
+  }
+
+  if (hargaInput === null || String(hargaInput).trim() === "" || !Number.isInteger(harga) || harga < 0) {
+    redirect("/admin/produk/baru?error=Harga%20harus%20berupa%20angka%20bulat%20dan%20tidak%20negatif.");
+  }
+
+  const { error } = await supabase.from("produk").insert({
+    nama,
+    harga,
+    kategori: String(formData.get("kategori") || "").trim(),
+    foto_url: String(formData.get("foto_url") || "").trim(),
+    deskripsi: String(formData.get("deskripsi") || "").trim(),
+  });
+
+  if (error) {
+    redirect("/admin/produk/baru?error=Produk%20gagal%20disimpan.%20Silakan%20coba%20lagi.");
+  }
+
+  revalidatePath("/");
+  revalidatePath("/admin");
+  redirect("/admin");
 }
