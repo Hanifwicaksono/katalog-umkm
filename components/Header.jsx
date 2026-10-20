@@ -8,9 +8,15 @@ export default function Header() {
         <Link href="/" className="text-lg font-extrabold tracking-tight text-utama">
           {toko.nama}
         </Link>
-        <nav aria-label="Navigasi utama" className="flex items-center gap-4 text-sm font-semibold">
+        <nav
+          aria-label="Navigasi utama"
+          className="flex flex-wrap items-center justify-end gap-4 text-sm font-semibold"
+        >
           <Link href="/tentang" className="hover:text-utama">
             Tentang
+          </Link>
+          <Link href="/favorit" className="hover:text-utama">
+            Favorit
           </Link>
           <Link href="/keranjang" className="hover:text-utama">
             Keranjang

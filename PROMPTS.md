@@ -414,6 +414,24 @@ Menambahkan tombol bagikan pada detail setiap produk.**
 
 **Perbaikan:**
 
+## US-24 Favorit tersimpan di browser
+
+**Prompt: Baca docs/user-stories.md bagian US-24.
+
+Tambahkan tombol favorit pada detail produk, simpan pilihannya di localStorage agar bertahan setelah halaman dimuat ulang, dan buat halaman `/favorit` yang hanya menampilkan produk pilihan tersebut.**
+
+**Hasil: Pekerjaan untuk US-24: Favorit tersimpan di browser telah selesai.
+
+File yang Dibuat dan Diubah
+lib/favorit.mjs dan components/TombolFavorit.jsx (Baru):
+Menambah atau menghapus snapshot produk favorit di localStorage dan menampilkan status tombolnya.
+components/DaftarFavorit.jsx dan app/favorit/page.jsx (Baru):
+Menampilkan produk favorit dengan KartuProduk yang sudah ada.
+app/produk/[id]/page.jsx dan components/Header.jsx:
+Menambahkan tombol favorit pada detail serta tautan menuju daftar favorit.**
+
+**Perbaikan:**
+
 ## Debugging dan fitur bonus
 
 Tambahkan bagian baru untuk setiap error yang kamu perbaiki atau fitur bonus yang kamu kerjakan.
