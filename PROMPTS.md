@@ -382,6 +382,22 @@ Menambahkan aksi masuk keranjang beserta umpan balik dan tautan navigasi ke kera
 
 **Perbaikan:**
 
+## US-22 Halaman Tentang dan kontak toko
+
+**Prompt: Baca docs/user-stories.md bagian US-22.
+
+Buat halaman `/tentang` yang mengambil profil toko, alamat, jam buka, dan nomor WhatsApp dari `lib/toko.js`. Tautkan halaman tersebut dari navigasi utama.**
+
+**Hasil: Pekerjaan untuk US-22: Halaman Tentang dan kontak toko telah selesai.
+
+File yang Dibuat dan Diubah
+app/tentang/page.jsx (Baru):
+Menampilkan profil, alamat, jam buka, dan tombol kontak WhatsApp berdasarkan identitas toko.
+components/Header.jsx:
+Menambahkan tautan navigasi menuju halaman Tentang.**
+
+**Perbaikan:**
+
 ## Debugging dan fitur bonus
 
 Tambahkan bagian baru untuk setiap error yang kamu perbaiki atau fitur bonus yang kamu kerjakan.
