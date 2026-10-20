@@ -258,6 +258,22 @@ Mendokumentasikan GEMINI_API_KEY sebagai environment variable server-only dan ca
 
 **Perbaikan:**
 
+## US-15 Urutkan produk
+
+**Prompt: Baca docs/user-stories.md bagian US-15.
+
+Tambahkan pilihan urutan termurah, termahal, dan terbaru di katalog. Simpan pilihan di URL dan terapkan urutan langsung pada query Supabase, bukan di browser. Pertahankan pencarian produk yang sudah ada dan jangan memakai input URL sebagai nama kolom query.**
+
+**Hasil: Pekerjaan untuk US-15: Urutkan produk telah selesai.
+
+File yang Diubah
+app/page.jsx:
+Menambahkan pilihan urutan termurah, termahal, dan terbaru pada form katalog.
+Memvalidasi nilai urutan dari URL dan menerapkannya dengan order pada query Supabase.
+Mempertahankan urutan saat pencarian dihapus.**
+
+**Perbaikan:**
+
 ## Debugging dan fitur bonus
 
 Tambahkan bagian baru untuk setiap error yang kamu perbaiki atau fitur bonus yang kamu kerjakan.

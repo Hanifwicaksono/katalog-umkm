@@ -7,8 +7,9 @@ import { buatClientServer } from "@/lib/supabase/server";
 export const dynamic = "force-dynamic";
 
 export default async function HalamanKatalog({ searchParams }) {
-  const { cari } = await searchParams;
+  const { cari, urut } = await searchParams;
   const kataKunci = typeof cari === "string" ? cari.trim().slice(0, 100) : "";
+  const urutan = ["termurah", "termahal", "terbaru"].includes(urut) ? urut : "terbaru";
   let daftarProduk = [];
   let pesanError = null;
 
@@ -22,7 +23,15 @@ export default async function HalamanKatalog({ searchParams }) {
       query = query.ilike("nama", `%${kataKunci}%`);
     }
 
-    const { data, error } = await query.order("id", { ascending: true });
+    if (urutan === "termurah") {
+      query = query.order("harga", { ascending: true }).order("id", { ascending: true });
+    } else if (urutan === "termahal") {
+      query = query.order("harga", { ascending: false }).order("id", { ascending: true });
+    } else {
+      query = query.order("created_at", { ascending: false }).order("id", { ascending: false });
+    }
+
+    const { data, error } = await query;
 
     if (error) {
       pesanError = error.message;
@@ -57,9 +66,21 @@ export default async function HalamanKatalog({ searchParams }) {
               placeholder="Contoh: kopi"
             />
           </div>
-          <Tombol type="submit">Cari</Tombol>
+          <label className="flex flex-col gap-1.5 text-sm font-semibold">
+            Urutkan
+            <select
+              name="urut"
+              defaultValue={urutan}
+              className="rounded-lg border border-garis bg-latar px-3 py-2.5 text-base text-teks focus:border-utama focus:outline-none"
+            >
+              <option value="termurah">Termurah</option>
+              <option value="termahal">Termahal</option>
+              <option value="terbaru">Terbaru</option>
+            </select>
+          </label>
+          <Tombol type="submit">Terapkan</Tombol>
           {kataKunci && (
-            <Tombol href="/" varian="garis">
+            <Tombol href={`/?urut=${urutan}`} varian="garis">
               Hapus pencarian
             </Tombol>
           )}
