@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import BagikanProduk from "@/components/BagikanProduk";
 import GaleriProduk from "@/components/GaleriProduk";
 import KartuProduk from "@/components/KartuProduk";
 import TombolWhatsApp from "@/components/TombolWhatsApp";
@@ -71,6 +72,7 @@ export default async function HalamanDetailProduk({ params }) {
           ) : (
             <TombolWhatsApp produk={produk} />
           )}
+          <BagikanProduk nama={produk.nama} />
         </div>
       </article>
 

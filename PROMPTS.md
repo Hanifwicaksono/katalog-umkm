@@ -398,6 +398,22 @@ Menambahkan tautan navigasi menuju halaman Tentang.**
 
 **Perbaikan:**
 
+## US-23 Bagikan atau salin link produk
+
+**Prompt: Baca docs/user-stories.md bagian US-23.
+
+Tambahkan tombol bagikan di halaman detail produk. Gunakan Web Share API bila tersedia, clipboard sebagai fallback, dan tampilkan umpan balik setelah tindakan berhasil.**
+
+**Hasil: Pekerjaan untuk US-23: Bagikan atau salin link produk telah selesai.
+
+File yang Dibuat dan Diubah
+components/BagikanProduk.jsx (Baru):
+Membagikan produk melalui Web Share API, menyalin link bila fitur tersebut tidak tersedia, dan menampilkan status hasil.
+app/produk/[id]/page.jsx:
+Menambahkan tombol bagikan pada detail setiap produk.**
+
+**Perbaikan:**
+
 ## Debugging dan fitur bonus
 
 Tambahkan bagian baru untuk setiap error yang kamu perbaiki atau fitur bonus yang kamu kerjakan.
