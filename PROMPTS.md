@@ -158,6 +158,22 @@ Menambahkan prop action agar form yang sama dapat menjalankan Server Action tanp
 
 **Perbaikan:**
 
+## US-09 Ubah produk
+
+**Prompt: Baca docs/user-stories.md bagian US-09.
+
+Ubah app/admin/produk/[id]/ubah/page.jsx supaya mengambil produk dari Supabase dan mengisi FormProduk dengan data lama. Buat Server Action untuk menyimpan perubahan setelah memeriksa login dan memvalidasi nama serta harga di server. Setelah berhasil, arahkan kembali ke /admin. Hapus CatatanBelumAktif dan penggunaan data contoh dari halaman ini.**
+
+**Hasil: Pekerjaan untuk US-09: Ubah produk telah selesai.
+
+File yang Diubah
+app/admin/actions.js:
+Menambahkan Server Action ubahProduk yang memeriksa sesi admin, memvalidasi id, nama, dan harga, menyimpan perubahan ke Supabase, memperbarui halaman terkait, lalu mengarahkan ke /admin.
+app/admin/produk/[id]/ubah/page.jsx:
+Mengambil data lama produk dari Supabase memakai sesi admin, menghubungkan FormProduk ke Server Action ubahProduk, menampilkan pesan error, serta menghapus data contoh dan CatatanBelumAktif.**
+
+**Perbaikan:**
+
 ## Debugging dan fitur bonus
 
 Tambahkan bagian baru untuk setiap error yang kamu perbaiki atau fitur bonus yang kamu kerjakan.

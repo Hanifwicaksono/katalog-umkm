@@ -126,3 +126,55 @@ export async function tambahProduk(formData) {
   revalidatePath("/admin");
   redirect("/admin");
 }
+
+export async function ubahProduk(id, formData) {
+  const supabase = await buatClientSesi();
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  if (userError || !user) {
+    redirect("/admin/login");
+  }
+
+  const idProduk = String(id);
+  if (!/^\d+$/.test(idProduk)) {
+    redirect("/admin");
+  }
+
+  const nama = String(formData.get("nama") || "").trim();
+  const hargaInput = formData.get("harga");
+  const harga = Number(hargaInput);
+  const halamanUbah = `/admin/produk/${idProduk}/ubah`;
+
+  if (!nama) {
+    redirect(`${halamanUbah}?error=Nama%20produk%20wajib%20diisi.`);
+  }
+
+  if (hargaInput === null || String(hargaInput).trim() === "" || !Number.isInteger(harga) || harga < 0) {
+    redirect(`${halamanUbah}?error=Harga%20harus%20berupa%20angka%20bulat%20dan%20tidak%20negatif.`);
+  }
+
+  const { data, error } = await supabase
+    .from("produk")
+    .update({
+      nama,
+      harga,
+      kategori: String(formData.get("kategori") || "").trim(),
+      foto_url: String(formData.get("foto_url") || "").trim(),
+      deskripsi: String(formData.get("deskripsi") || "").trim(),
+    })
+    .eq("id", idProduk)
+    .select("id")
+    .maybeSingle();
+
+  if (error || !data) {
+    redirect(`${halamanUbah}?error=Perubahan%20gagal%20disimpan.%20Silakan%20coba%20lagi.`);
+  }
+
+  revalidatePath("/");
+  revalidatePath("/admin");
+  revalidatePath(`/produk/${idProduk}`);
+  redirect("/admin");
+}

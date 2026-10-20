@@ -1,24 +1,35 @@
 import { notFound } from "next/navigation";
 import NavAdmin from "@/components/NavAdmin";
 import FormProduk from "@/components/FormProduk";
-import CatatanBelumAktif from "@/components/CatatanBelumAktif";
-import { cariProdukContoh } from "@/lib/data-contoh";
+import { ubahProduk } from "@/app/admin/actions";
+import { buatClientSesi } from "@/lib/supabase/server";
 
-// US-09 (bonus di jalur offline): ubah produk.
-export default async function HalamanUbahProduk({ params }) {
+export default async function HalamanUbahProduk({ params, searchParams }) {
   const { id } = await params;
-  const produk = cariProdukContoh(id);
+  const { error: pesanError } = await searchParams;
+  const supabase = await buatClientSesi();
+  const { data: produk, error } = await supabase
+    .from("produk")
+    .select("*")
+    .eq("id", id)
+    .maybeSingle();
 
-  if (!produk) {
+  if (error || !produk) {
     notFound();
   }
+
+  const simpanPerubahan = ubahProduk.bind(null, id);
 
   return (
     <div className="flex flex-col gap-6 py-8">
       <NavAdmin />
       <h1 className="text-2xl font-extrabold">Ubah produk</h1>
-      <CatatanBelumAktif>Simpan perubahan belum berfungsi: lihat US-09.</CatatanBelumAktif>
-      <FormProduk produk={produk} labelTombol="Simpan perubahan" />
+      {pesanError && (
+        <p role="alert" className="rounded-xl border border-garis bg-permukaan p-3 text-sm text-bahaya">
+          {pesanError}
+        </p>
+      )}
+      <FormProduk produk={produk} action={simpanPerubahan} labelTombol="Simpan perubahan" />
     </div>
   );
 }
