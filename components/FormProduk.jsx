@@ -22,6 +22,15 @@ export default function FormProduk({ produk = {}, labelTombol, action }) {
         required
       />
       <Input label="Kategori" name="kategori" defaultValue={produk.kategori} />
+      <label className="flex items-center gap-2 text-sm font-semibold">
+        <input
+          type="checkbox"
+          name="tersedia"
+          defaultChecked={produk.tersedia !== false}
+          className="h-4 w-4 accent-utama"
+        />
+        Produk tersedia
+      </label>
       <Input
         label="Link foto"
         name="foto_url"

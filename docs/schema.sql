@@ -11,11 +11,13 @@ create table if not exists public.produk (
   foto_url text,
   foto_urls text[] not null default '{}',
   kategori text,
+  tersedia boolean not null default true,
   created_at timestamptz not null default now()
 );
 
 -- Kolom bonus; alter menjaga proyek lama tetap bisa memakai skrip terbaru.
 alter table public.produk add column if not exists foto_urls text[] not null default '{}';
+alter table public.produk add column if not exists tersedia boolean not null default true;
 
 -- 2. Row Level Security
 -- Tidak ada izin untuk publik: akses langsung ke tabel dari luar aplikasi ditolak.

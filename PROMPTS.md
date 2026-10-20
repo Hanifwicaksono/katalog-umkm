@@ -326,6 +326,24 @@ Menambahkan kolom foto_urls yang kompatibel dengan produk lama.**
 
 **Perbaikan:**
 
+## US-19 Status stok
+
+**Prompt: Baca docs/user-stories.md bagian US-19.
+
+Tambahkan kolom tersedia bertipe boolean dengan default true agar data lama tetap aktif. Tambahkan checkbox status pada FormProduk dan simpan lewat aksi tambah/ubah. Tandai produk yang tidak tersedia sebagai "Habis" di kartu dan detail, serta sembunyikan tombol WhatsApp untuk produk tersebut.**
+
+**Hasil: Pekerjaan untuk US-19: Status stok telah selesai.
+
+File yang Diubah
+docs/schema.sql dan docs/skema-database.md:
+Menambahkan kolom tersedia dengan default true yang kompatibel dengan data lama.
+components/FormProduk.jsx dan app/admin/actions.js:
+Menambahkan input status serta menyimpannya saat produk ditambah atau diubah.
+components/KartuProduk.jsx, app/produk/[id]/page.jsx, dan components/TombolWhatsApp.jsx:
+Menampilkan penanda "Habis" dan mencegah pemesanan produk yang tidak tersedia.**
+
+**Perbaikan:**
+
 ## Debugging dan fitur bonus
 
 Tambahkan bagian baru untuk setiap error yang kamu perbaiki atau fitur bonus yang kamu kerjakan.

@@ -11,6 +11,7 @@
 | `foto_url` | text | Link gambar produk |
 | `foto_urls` | text[] | Link gambar tambahan untuk galeri |
 | `kategori` | text | Kelompok produk, misalnya "Camilan" |
+| `tersedia` | boolean | Status produk tersedia atau habis, default tersedia |
 | `created_at` | timestamptz | Waktu dibuat, otomatis |
 
 ## Aturan akses (RLS)

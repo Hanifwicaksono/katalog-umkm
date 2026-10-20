@@ -8,7 +8,7 @@ import { formatRupiah } from "@/lib/format";
 export default function TombolWhatsApp({ produk }) {
   const [jumlah, setJumlah] = useState(1);
 
-  if (!produk) return null;
+  if (!produk || produk.tersedia === false) return null;
 
   const nomor = toko.nomorWhatsApp?.replace(/[^0-9]/g, "") || "";
   const pesan = `Halo, saya ingin memesan ${jumlah} x ${produk.nama} seharga ${formatRupiah(produk.harga)} per produk.`;
