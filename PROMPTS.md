@@ -364,6 +364,24 @@ Menggunakan harga diskon dalam pesan ketika tersedia.**
 
 **Perbaikan:**
 
+## US-21 Keranjang, pesan semua via WhatsApp
+
+**Prompt: Baca docs/user-stories.md bagian US-21.
+
+Tambahkan keranjang berbasis browser dari halaman detail produk. Keranjang harus dapat mengubah jumlah, menghapus item, menghitung total, bertahan saat pindah halaman, dan mengirim seluruh pesanan dalam satu pesan WhatsApp ke nomor toko.**
+
+**Hasil: Pekerjaan untuk US-21: Keranjang, pesan semua via WhatsApp telah selesai.
+
+File yang Dibuat dan Diubah
+lib/keranjang.js dan components/Keranjang.jsx (Baru):
+Menyimpan keranjang di localStorage, mengubah jumlah, menghapus item, menghitung total, dan menyusun satu pesan WhatsApp.
+app/keranjang/page.jsx (Baru):
+Menambahkan halaman keranjang.
+components/TombolWhatsApp.jsx dan components/Header.jsx:
+Menambahkan aksi masuk keranjang beserta umpan balik dan tautan navigasi ke keranjang.**
+
+**Perbaikan:**
+
 ## Debugging dan fitur bonus
 
 Tambahkan bagian baru untuk setiap error yang kamu perbaiki atau fitur bonus yang kamu kerjakan.

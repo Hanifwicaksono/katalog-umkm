@@ -2,11 +2,14 @@
 
 import { useState } from "react";
 import Input from "@/components/Input";
+import Tombol from "@/components/Tombol";
 import { toko } from "@/lib/toko";
 import { formatRupiah } from "@/lib/format";
+import { tambahKeKeranjang } from "@/lib/keranjang.mjs";
 
 export default function TombolWhatsApp({ produk }) {
   const [jumlah, setJumlah] = useState(1);
+  const [pesanKeranjang, setPesanKeranjang] = useState("");
 
   if (!produk || produk.tersedia === false) return null;
 
@@ -37,6 +40,19 @@ export default function TombolWhatsApp({ produk }) {
       >
         Pesan via WhatsApp
       </a>
+      <Tombol
+        type="button"
+        varian="garis"
+        onClick={() => {
+          tambahKeKeranjang(produk, jumlah);
+          setPesanKeranjang("Produk ditambahkan ke keranjang.");
+        }}
+      >
+        Tambah ke keranjang
+      </Tombol>
+      <p aria-live="polite" className="text-sm text-utama">
+        {pesanKeranjang}
+      </p>
     </div>
   );
 }
