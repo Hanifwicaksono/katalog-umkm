@@ -27,6 +27,20 @@ html {
   background: var(--color-latar);
 }
 
+html[data-tema="gelap"] {
+  color-scheme: dark;
+  --color-latar: #101612;
+  --color-permukaan: #1a241e;
+  --color-garis: #3b4d42;
+  --color-teks: #f1f5f2;
+  --color-teks-lembut: #b7c5bd;
+  --color-utama: #42b883;
+  --color-utama-gelap: #2f8d68;
+  --color-harga: #f2c66d;
+  --color-harga-latar: #3c2d12;
+  --color-bahaya: #ff8a80;
+}
+
 :focus-visible {
   outline: 3px solid var(--color-utama);
   outline-offset: 2px;

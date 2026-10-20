@@ -1,4 +1,5 @@
 import Link from "next/link";
+import TombolTema from "@/components/TombolTema";
 import { toko } from "@/lib/toko";
 
 export default function Header() {
@@ -21,6 +22,7 @@ export default function Header() {
           <Link href="/keranjang" className="hover:text-utama">
             Keranjang
           </Link>
+          <TombolTema />
         </nav>
       </div>
     </header>

@@ -432,6 +432,24 @@ Menambahkan tombol favorit pada detail serta tautan menuju daftar favorit.**
 
 **Perbaikan:**
 
+## US-25 Mode gelap
+
+**Prompt: Baca docs/user-stories.md bagian US-25.
+
+Tambahkan tombol untuk berpindah antara mode terang dan gelap. Simpan pilihan di localStorage agar tetap digunakan setelah halaman dimuat ulang dan terapkan warna gelap melalui token desain yang sudah ada.**
+
+**Hasil: Pekerjaan untuk US-25: Mode gelap telah selesai.
+
+File yang Dibuat dan Diubah
+components/TombolTema.jsx dan lib/tema.mjs (Baru):
+Menambahkan kontrol mode terang/gelap dan menyimpan pilihan pengguna di localStorage.
+components/Header.jsx:
+Menampilkan kontrol tema di navigasi utama.
+app/globals.css:
+Menambahkan nilai token warna mode gelap agar seluruh halaman tetap terbaca.**
+
+**Perbaikan:**
+
 ## Debugging dan fitur bonus
 
 Tambahkan bagian baru untuk setiap error yang kamu perbaiki atau fitur bonus yang kamu kerjakan.
