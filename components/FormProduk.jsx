@@ -28,6 +28,12 @@ export default function FormProduk({ produk = {}, labelTombol, action }) {
         placeholder="https://... atau /produk/nama-file.svg"
         defaultValue={produk.foto_url}
       />
+      <Input
+        label="Link foto tambahan (satu per baris)"
+        name="foto_urls"
+        textarea
+        defaultValue={Array.isArray(produk.foto_urls) ? produk.foto_urls.join("\n") : ""}
+      />
       {state?.error && (
         <p role="alert" className="rounded-xl border border-garis bg-permukaan p-3 text-sm text-bahaya">
           {state.error}

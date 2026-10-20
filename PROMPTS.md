@@ -306,6 +306,26 @@ Menampilkan hasil dengan KartuProduk dan menyembunyikan bagian saat hasil kosong
 
 **Perbaikan:**
 
+## US-18 Galeri beberapa foto produk
+
+**Prompt: Baca docs/user-stories.md bagian US-18.
+
+Tambahkan kolom foto_urls bertipe text array dengan default kosong tanpa mengganti foto_url sebagai foto utama. Tambahkan input URL tambahan satu per baris pada FormProduk dan simpan melalui aksi tambah/ubah. Buat galeri detail yang dapat mengganti foto utama lewat thumbnail dan tetap normal untuk produk dengan satu foto.**
+
+**Hasil: Pekerjaan untuk US-18: Galeri beberapa foto produk telah selesai.
+
+File yang Dibuat dan Diubah
+components/GaleriProduk.jsx (Baru):
+Menampilkan foto utama, thumbnail foto tambahan, dan memungkinkan pengunjung mengganti foto aktif.
+app/produk/[id]/page.jsx:
+Mengganti gambar tunggal dengan GaleriProduk.
+components/FormProduk.jsx dan app/admin/actions.js:
+Menambahkan input URL tambahan satu per baris dan menyimpannya sebagai array saat produk ditambah atau diubah.
+docs/schema.sql dan docs/skema-database.md:
+Menambahkan kolom foto_urls yang kompatibel dengan produk lama.**
+
+**Perbaikan:**
+
 ## Debugging dan fitur bonus
 
 Tambahkan bagian baru untuk setiap error yang kamu perbaiki atau fitur bonus yang kamu kerjakan.

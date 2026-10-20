@@ -101,6 +101,10 @@ export async function tambahProduk(formData) {
   const nama = String(formData.get("nama") || "").trim();
   const hargaInput = formData.get("harga");
   const harga = Number(hargaInput);
+  const fotoUrls = String(formData.get("foto_urls") || "")
+    .split(/\r?\n/)
+    .map((url) => url.trim())
+    .filter(Boolean);
 
   if (!nama) {
     redirect("/admin/produk/baru?error=Nama%20produk%20wajib%20diisi.");
@@ -115,6 +119,7 @@ export async function tambahProduk(formData) {
     harga,
     kategori: String(formData.get("kategori") || "").trim(),
     foto_url: String(formData.get("foto_url") || "").trim(),
+    foto_urls: fotoUrls,
     deskripsi: String(formData.get("deskripsi") || "").trim(),
   });
 
@@ -146,6 +151,10 @@ export async function ubahProduk(id, formData) {
   const nama = String(formData.get("nama") || "").trim();
   const hargaInput = formData.get("harga");
   const harga = Number(hargaInput);
+  const fotoUrls = String(formData.get("foto_urls") || "")
+    .split(/\r?\n/)
+    .map((url) => url.trim())
+    .filter(Boolean);
   const halamanUbah = `/admin/produk/${idProduk}/ubah`;
 
   if (!nama) {
@@ -163,6 +172,7 @@ export async function ubahProduk(id, formData) {
       harga,
       kategori: String(formData.get("kategori") || "").trim(),
       foto_url: String(formData.get("foto_url") || "").trim(),
+      foto_urls: fotoUrls,
       deskripsi: String(formData.get("deskripsi") || "").trim(),
     })
     .eq("id", idProduk)
