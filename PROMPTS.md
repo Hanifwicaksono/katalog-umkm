@@ -104,9 +104,22 @@ Menghapus komponen CatatanBelumAktif dan mempertahankan seluruh tampilan form ya
 
 ## US-06 Proteksi halaman admin
 
-**Prompt:**
+**Prompt: Baca AGENTS.md aturan keamanan nomor 3 dan 4, dan docs/user-stories.md bagian US-06.
 
-**Hasil:**
+Buat file proxy.js di root proyek (Next.js 16). Semua rute /admin kecuali /admin/login wajib login dengan Supabase Auth; kalau belum login, alihkan ke /admin/login. Pastikan juga setiap Server Action yang mengubah data memeriksa login di server. Hapus CatatanBelumAktif dari halaman /admin.**
+
+**Hasil: Pekerjaan untuk US-06: Proteksi halaman admin telah selesai.
+
+File yang Dibuat dan Diubah
+proxy.js (Baru):
+Dibuat di root proyek sebagai pengganti middleware.js pada Next.js 16.
+Menggunakan @supabase/ssr untuk memeriksa status sesi login pengguna (supabase.auth.getUser()).
+Melindungi seluruh rute /admin (termasuk /admin/password, /admin/produk/baru, dll.) kecuali /admin/login.
+Mengalihkan pengunjung yang belum terotentikasi langsung ke /admin/login.
+app/admin/actions.js:
+Memastikan Server Action yang mengubah data (seperti gantiPassword) memvalidasi sesi admin terlebih dahulu melalui server sebelum eksekusi.
+app/admin/page.jsx (Diubah):
+Menghapus komponen dan impor CatatanBelumAktif dari halaman /admin.**
 
 **Perbaikan:**
 
