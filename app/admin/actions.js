@@ -101,6 +101,9 @@ export async function tambahProduk(formData) {
   const nama = String(formData.get("nama") || "").trim();
   const hargaInput = formData.get("harga");
   const harga = Number(hargaInput);
+  const hargaDiskonInput = String(formData.get("harga_diskon") || "").trim();
+  const hargaDiskon = hargaDiskonInput === "" ? null : Number(hargaDiskonInput);
+  const label = String(formData.get("label") || "");
   const fotoUrls = String(formData.get("foto_urls") || "")
     .split(/\r?\n/)
     .map((url) => url.trim())
@@ -114,10 +117,20 @@ export async function tambahProduk(formData) {
     redirect("/admin/produk/baru?error=Harga%20harus%20berupa%20angka%20bulat%20dan%20tidak%20negatif.");
   }
 
+  if (hargaDiskon !== null && (!Number.isInteger(hargaDiskon) || hargaDiskon < 0 || hargaDiskon >= harga)) {
+    redirect("/admin/produk/baru?error=Harga%20diskon%20harus%20berupa%20angka%20bulat%20dan%20lebih%20kecil%20dari%20harga%20normal.");
+  }
+
+  if (!["", "Baru", "Terlaris"].includes(label)) {
+    redirect("/admin/produk/baru?error=Label%20produk%20tidak%20valid.");
+  }
+
   const { error } = await supabase.from("produk").insert({
     nama,
     harga,
+    harga_diskon: hargaDiskon,
     kategori: String(formData.get("kategori") || "").trim(),
+    label: label || null,
     tersedia: formData.get("tersedia") === "on",
     foto_url: String(formData.get("foto_url") || "").trim(),
     foto_urls: fotoUrls,
@@ -152,6 +165,9 @@ export async function ubahProduk(id, formData) {
   const nama = String(formData.get("nama") || "").trim();
   const hargaInput = formData.get("harga");
   const harga = Number(hargaInput);
+  const hargaDiskonInput = String(formData.get("harga_diskon") || "").trim();
+  const hargaDiskon = hargaDiskonInput === "" ? null : Number(hargaDiskonInput);
+  const label = String(formData.get("label") || "");
   const fotoUrls = String(formData.get("foto_urls") || "")
     .split(/\r?\n/)
     .map((url) => url.trim())
@@ -166,12 +182,22 @@ export async function ubahProduk(id, formData) {
     redirect(`${halamanUbah}?error=Harga%20harus%20berupa%20angka%20bulat%20dan%20tidak%20negatif.`);
   }
 
+  if (hargaDiskon !== null && (!Number.isInteger(hargaDiskon) || hargaDiskon < 0 || hargaDiskon >= harga)) {
+    redirect(`${halamanUbah}?error=Harga%20diskon%20harus%20berupa%20angka%20bulat%20dan%20lebih%20kecil%20dari%20harga%20normal.`);
+  }
+
+  if (!["", "Baru", "Terlaris"].includes(label)) {
+    redirect(`${halamanUbah}?error=Label%20produk%20tidak%20valid.`);
+  }
+
   const { data, error } = await supabase
     .from("produk")
     .update({
       nama,
       harga,
+      harga_diskon: hargaDiskon,
       kategori: String(formData.get("kategori") || "").trim(),
+      label: label || null,
       tersedia: formData.get("tersedia") === "on",
       foto_url: String(formData.get("foto_url") || "").trim(),
       foto_urls: fotoUrls,

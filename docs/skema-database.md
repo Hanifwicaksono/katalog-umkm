@@ -7,10 +7,12 @@
 | `id` | bigint | Nomor unik, dibuat otomatis |
 | `nama` | text | Nama produk, wajib diisi |
 | `harga` | integer | Harga dalam rupiah, tidak boleh negatif |
+| `harga_diskon` | integer | Harga promo opsional, harus lebih kecil dari harga normal |
 | `deskripsi` | text | Penjelasan produk |
 | `foto_url` | text | Link gambar produk |
 | `foto_urls` | text[] | Link gambar tambahan untuk galeri |
 | `kategori` | text | Kelompok produk, misalnya "Camilan" |
+| `label` | text | Badge opsional: "Baru" atau "Terlaris" |
 | `tersedia` | boolean | Status produk tersedia atau habis, default tersedia |
 | `created_at` | timestamptz | Waktu dibuat, otomatis |
 

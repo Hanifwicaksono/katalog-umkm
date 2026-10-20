@@ -11,7 +11,9 @@ export default function TombolWhatsApp({ produk }) {
   if (!produk || produk.tersedia === false) return null;
 
   const nomor = toko.nomorWhatsApp?.replace(/[^0-9]/g, "") || "";
-  const pesan = `Halo, saya ingin memesan ${jumlah} x ${produk.nama} seharga ${formatRupiah(produk.harga)} per produk.`;
+  const adaDiskon = Number.isInteger(produk.harga_diskon) && produk.harga_diskon < produk.harga;
+  const harga = adaDiskon ? produk.harga_diskon : produk.harga;
+  const pesan = `Halo, saya ingin memesan ${jumlah} x ${produk.nama} seharga ${formatRupiah(harga)} per produk.`;
   const urlWhatsApp = `https://wa.me/${nomor}?text=${encodeURIComponent(pesan)}`;
 
   return (

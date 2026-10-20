@@ -344,6 +344,26 @@ Menampilkan penanda "Habis" dan mencegah pemesanan produk yang tidak tersedia.**
 
 **Perbaikan:**
 
+## US-20 Harga coret dan badge
+
+**Prompt: Baca docs/user-stories.md bagian US-20.
+
+Tambahkan kolom harga_diskon opsional dan label produk "Baru" atau "Terlaris". Validasi di server bahwa harga diskon berupa angka bulat, tidak negatif, dan lebih kecil dari harga normal. Tambahkan input admin, tampilkan harga normal dicoret beserta harga diskon dan badge pada kartu/detail, serta gunakan harga diskon di pesan WhatsApp.**
+
+**Hasil: Pekerjaan untuk US-20: Harga coret dan badge telah selesai.
+
+File yang Diubah
+docs/schema.sql dan docs/skema-database.md:
+Menambahkan kolom harga_diskon dan label beserta constraint database.
+components/FormProduk.jsx dan app/admin/actions.js:
+Menambahkan input serta validasi server untuk harga diskon dan label.
+components/KartuProduk.jsx dan app/produk/[id]/page.jsx:
+Menampilkan harga normal dicoret, harga diskon, serta badge dari data produk.
+components/TombolWhatsApp.jsx:
+Menggunakan harga diskon dalam pesan ketika tersedia.**
+
+**Perbaikan:**
+
 ## Debugging dan fitur bonus
 
 Tambahkan bagian baru untuk setiap error yang kamu perbaiki atau fitur bonus yang kamu kerjakan.

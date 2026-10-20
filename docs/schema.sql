@@ -7,10 +7,12 @@ create table if not exists public.produk (
   id bigint generated always as identity primary key,
   nama text not null,
   harga integer not null check (harga >= 0),
+  harga_diskon integer check (harga_diskon >= 0 and harga_diskon < harga),
   deskripsi text,
   foto_url text,
   foto_urls text[] not null default '{}',
   kategori text,
+  label text check (label in ('Baru', 'Terlaris')),
   tersedia boolean not null default true,
   created_at timestamptz not null default now()
 );
@@ -18,6 +20,10 @@ create table if not exists public.produk (
 -- Kolom bonus; alter menjaga proyek lama tetap bisa memakai skrip terbaru.
 alter table public.produk add column if not exists foto_urls text[] not null default '{}';
 alter table public.produk add column if not exists tersedia boolean not null default true;
+alter table public.produk add column if not exists harga_diskon integer
+  check (harga_diskon >= 0 and harga_diskon < harga);
+alter table public.produk add column if not exists label text
+  check (label in ('Baru', 'Terlaris'));
 
 -- 2. Row Level Security
 -- Tidak ada izin untuk publik: akses langsung ke tabel dari luar aplikasi ditolak.

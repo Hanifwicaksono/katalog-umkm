@@ -20,6 +20,8 @@ export default async function HalamanDetailProduk({ params }) {
     notFound();
   }
 
+  const adaDiskon = Number.isInteger(produk.harga_diskon) && produk.harga_diskon < produk.harga;
+
   let produkTerkait = [];
   if (produk.kategori) {
     const { data } = await supabase
@@ -45,10 +47,22 @@ export default async function HalamanDetailProduk({ params }) {
             Kembali ke katalog
           </Link>
           <p className="text-sm text-teks-lembut">{produk.kategori}</p>
+          {produk.label && (
+            <span className="self-start rounded-md bg-utama px-2 py-1 text-sm font-bold text-white">
+              {produk.label}
+            </span>
+          )}
           <h1 className="text-3xl font-extrabold leading-tight tracking-tight">{produk.nama}</h1>
-          <p className="self-start rounded-md bg-harga-latar px-3 py-1 text-xl font-bold text-harga">
-            {formatRupiah(produk.harga)}
-          </p>
+          <div className="flex flex-col items-start gap-1">
+            {adaDiskon && (
+              <span className="text-sm text-teks-lembut line-through">
+                {formatRupiah(produk.harga)}
+              </span>
+            )}
+            <p className="rounded-md bg-harga-latar px-3 py-1 text-xl font-bold text-harga">
+              {formatRupiah(adaDiskon ? produk.harga_diskon : produk.harga)}
+            </p>
+          </div>
           <p className="max-w-prose leading-relaxed text-teks-lembut">{produk.deskripsi}</p>
           {produk.tersedia === false ? (
             <p className="self-start rounded-md bg-permukaan px-3 py-1 font-bold text-bahaya">
