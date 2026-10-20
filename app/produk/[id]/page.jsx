@@ -7,6 +7,28 @@ import TombolFavorit from "@/components/TombolFavorit";
 import TombolWhatsApp from "@/components/TombolWhatsApp";
 import { formatRupiah } from "@/lib/format";
 import { buatClientServer } from "@/lib/supabase/server";
+import { toko } from "@/lib/toko";
+
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+  const { data: produk } = await buatClientServer()
+    .from("produk")
+    .select("nama, deskripsi, foto_url")
+    .eq("id", id)
+    .maybeSingle();
+
+  if (!produk) return { title: `Produk tidak ditemukan | ${toko.nama}` };
+
+  return {
+    title: `${produk.nama} | ${toko.nama}`,
+    description: produk.deskripsi,
+    openGraph: {
+      title: produk.nama,
+      description: produk.deskripsi,
+      images: [{ url: produk.foto_url, alt: produk.nama }],
+    },
+  };
+}
 
 export default async function HalamanDetailProduk({ params }) {
   const { id } = await params;

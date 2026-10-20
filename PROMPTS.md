@@ -450,6 +450,20 @@ Menambahkan nilai token warna mode gelap agar seluruh halaman tetap terbaca.**
 
 **Perbaikan:**
 
+## US-26 Metadata SEO dan Open Graph
+
+**Prompt: Baca docs/user-stories.md bagian US-26.
+
+Tambahkan metadata dinamis pada halaman detail produk menggunakan `generateMetadata`. Gunakan nama dan deskripsi produk untuk metadata halaman serta nama dan foto produk untuk Open Graph.**
+
+**Hasil: Pekerjaan untuk US-26: Metadata SEO dan Open Graph telah selesai.
+
+File yang Diubah
+app/produk/[id]/page.jsx:
+Mengambil metadata produk dari Supabase dan menghasilkan judul, deskripsi, serta Open Graph dengan nama dan foto produk.**
+
+**Perbaikan:**
+
 ## Debugging dan fitur bonus
 
 Tambahkan bagian baru untuk setiap error yang kamu perbaiki atau fitur bonus yang kamu kerjakan.
