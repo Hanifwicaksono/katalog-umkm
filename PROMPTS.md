@@ -174,6 +174,24 @@ Mengambil data lama produk dari Supabase memakai sesi admin, menghubungkan FormP
 
 **Perbaikan:**
 
+## US-10 Hapus produk
+
+**Prompt: Baca docs/user-stories.md bagian US-10.
+
+Aktifkan tombol Hapus di daftar produk admin. Minta konfirmasi sebelum menghapus, lalu hapus produk dari Supabase melalui Server Action yang memeriksa login dan id produk di server. Setelah berhasil, kembali ke /admin dan perbarui katalog. Tampilkan pesan yang jelas jika penghapusan gagal.**
+
+**Hasil: Pekerjaan untuk US-10: Hapus produk telah selesai.
+
+File yang Diubah
+app/admin/actions.js:
+Menambahkan Server Action hapusProduk yang memeriksa sesi admin dan id, menghapus produk dari Supabase, memperbarui halaman terkait, lalu mengarahkan ke /admin.
+components/TabelProduk.jsx:
+Menghubungkan tombol Hapus ke Server Action serta meminta konfirmasi di browser sebelum form dikirim.
+app/admin/page.jsx:
+Menampilkan pesan error jika aksi penghapusan gagal.**
+
+**Perbaikan:**
+
 ## Debugging dan fitur bonus
 
 Tambahkan bagian baru untuk setiap error yang kamu perbaiki atau fitur bonus yang kamu kerjakan.

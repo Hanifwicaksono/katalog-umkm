@@ -1,5 +1,14 @@
+"use client";
+
 import { formatRupiah } from "@/lib/format";
 import Tombol from "@/components/Tombol";
+import { hapusProduk } from "@/app/admin/actions";
+
+function konfirmasiHapus(event) {
+  if (!window.confirm("Hapus produk ini? Tindakan ini tidak dapat dibatalkan.")) {
+    event.preventDefault();
+  }
+}
 
 export default function TabelProduk({ daftarProduk }) {
   return (
@@ -28,13 +37,14 @@ export default function TabelProduk({ daftarProduk }) {
               <td className="px-4 py-3">{formatRupiah(produk.harga)}</td>
               <td className="px-4 py-3">
                 <div className="flex justify-end gap-2">
-                  {/* US-09 dan US-10 (bonus): ubah dan hapus produk */}
                   <Tombol href={`/admin/produk/${produk.id}/ubah`} varian="garis">
                     Ubah
                   </Tombol>
-                  <Tombol type="button" varian="bahaya">
-                    Hapus
-                  </Tombol>
+                  <form action={hapusProduk.bind(null, produk.id)} onSubmit={konfirmasiHapus}>
+                    <Tombol type="submit" varian="bahaya">
+                      Hapus
+                    </Tombol>
+                  </form>
                 </div>
               </td>
             </tr>

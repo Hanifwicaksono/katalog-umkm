@@ -3,7 +3,8 @@ import TabelProduk from "@/components/TabelProduk";
 import Tombol from "@/components/Tombol";
 import { buatClientSesi } from "@/lib/supabase/server";
 
-export default async function HalamanAdmin() {
+export default async function HalamanAdmin({ searchParams }) {
+  const { error: pesanAksi } = await searchParams;
   const supabase = await buatClientSesi();
   const { data: daftarProduk, error } = await supabase
     .from("produk")
@@ -18,6 +19,11 @@ export default async function HalamanAdmin() {
         {/* US-08 (bonus): tambah produk */}
         <Tombol href="/admin/produk/baru">Tambah produk</Tombol>
       </div>
+      {pesanAksi && (
+        <p role="alert" className="rounded-xl border border-garis bg-permukaan p-3 text-sm text-bahaya">
+          {pesanAksi}
+        </p>
+      )}
       {error ? (
         <p className="text-bahaya">Gagal memuat produk: {error.message}</p>
       ) : daftarProduk.length === 0 ? (

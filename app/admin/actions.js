@@ -178,3 +178,36 @@ export async function ubahProduk(id, formData) {
   revalidatePath(`/produk/${idProduk}`);
   redirect("/admin");
 }
+
+export async function hapusProduk(id) {
+  const supabase = await buatClientSesi();
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  if (userError || !user) {
+    redirect("/admin/login");
+  }
+
+  const idProduk = String(id);
+  if (!/^\d+$/.test(idProduk)) {
+    redirect("/admin?error=Produk%20tidak%20valid.");
+  }
+
+  const { data, error } = await supabase
+    .from("produk")
+    .delete()
+    .eq("id", idProduk)
+    .select("id")
+    .maybeSingle();
+
+  if (error || !data) {
+    redirect("/admin?error=Produk%20gagal%20dihapus.%20Silakan%20coba%20lagi.");
+  }
+
+  revalidatePath("/");
+  revalidatePath("/admin");
+  revalidatePath(`/produk/${idProduk}`);
+  redirect("/admin");
+}
