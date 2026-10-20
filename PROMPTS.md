@@ -42,9 +42,20 @@ Mempertahankan tampilan detail produk beserta tombol WhatsApp (TombolWhatsApp).*
 
 ## US-03 Pesan via WhatsApp
 
-**Prompt:**
+**Prompt: Baca docs/rancangan-teknis.md bagian "Pesan WhatsApp (US-03)".
 
-**Hasil:**
+Ubah components/TombolWhatsApp.jsx menjadi tautan yang membuka https://wa.me/ ke nomor di lib/toko.js, dengan pesan otomatis berisi nama dan harga produk dalam format rupiah. Pesan di-encode dengan encodeURIComponent dan dibuka di tab baru. Pertahankan tampilan tombolnya. Hapus CatatanBelumAktif yang menyebut US-03 di halaman detail produk.**
+
+**Hasil: Pekerjaan untuk US-03: Pesan via WhatsApp telah selesai.
+
+File yang Diubah
+components/TombolWhatsApp.jsx:
+Mengubah elemen <button> menjadi tautan <a> dengan tampilan tombol yang tetap sama.
+Membuka URL WhatsApp https://wa.me/<nomor>?text=<pesan> ke nomor toko di lib/toko.js.
+Pesan otomatis memuat nama dan harga produk dalam format rupiah menggunakan formatRupiah, yang di-encode dengan encodeURIComponent.
+Tautan dibuka di tab baru dengan atribut target="_blank" dan rel="noopener noreferrer".
+app/produk/[id]/page.jsx:
+Memastikan komponen dan impor CatatanBelumAktif yang menyebut US-03 sudah dihapus dari halaman detail produk.**
 
 **Perbaikan:**
 
