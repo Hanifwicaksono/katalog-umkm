@@ -25,9 +25,18 @@ Menampilkan pesan error jika query gagal atau terjadi kendala koneksi.**
 
 ## US-02 Detail produk
 
-**Prompt:**
+**Prompt:Baca docs/user-stories.md bagian US-02.
 
-**Hasil:**
+Ubah app/produk/[id]/page.jsx supaya mengambil satu produk dari tabel "produk" di Supabase berdasarkan id di URL, di sisi server, memakai koneksi Supabase yang sudah dibuat di lib/supabase. Kalau produk tidak ditemukan, panggil notFound(). Jangan ubah tampilannya. Hapus CatatanBelumAktif dari halaman ini, tapi biarkan tombol WhatsApp.**
+
+**Hasil: Pekerjaan untuk US-02: Detail produk telah selesai.
+
+File yang Diubah
+app/produk/[id]/page.jsx:
+Mengambil data produk spesifik dari tabel produk di Supabase berdasarkan id URL di sisi server menggunakan buatClientServer.
+Memanggil notFound() jika produk tidak ditemukan di database atau jika terjadi error pada query.
+Menghapus komponen dan impor CatatanBelumAktif serta cariProdukContoh.
+Mempertahankan tampilan detail produk beserta tombol WhatsApp (TombolWhatsApp).**
 
 **Perbaikan:**
 
