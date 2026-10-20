@@ -83,9 +83,22 @@ Menghubungkan tombol "Keluar" ke Server Action logout agar menghapus sesi cookie
 
 ## US-05 Ganti password
 
-**Prompt:**
+**Prompt: Baca docs/user-stories.md bagian US-05.
 
-**Hasil:**
+Buat Server Action ganti password di app/admin/actions.js untuk admin yang sedang login, memakai Supabase Auth. Validasi di server: password baru minimal 8 karakter dan harus sama dengan konfirmasi. Tampilkan pesan berhasil atau pesan error yang jelas di halaman. Sambungkan ke form di app/admin/password/page.jsx tanpa mengubah tampilannya. Hapus CatatanBelumAktif dari halaman ini.**
+
+**Hasil: Pekerjaan untuk US-05: Ganti password telah selesai.
+
+File yang Diubah
+app/admin/actions.js:
+Menambahkan Server Action gantiPassword untuk admin yang sedang login.
+Melakukan validasi di sisi server: memastikan admin terotentikasi via supabase.auth.getUser(), panjang password baru minimal 8 karakter, dan konfirmasi password cocok.
+Mengubah password menggunakan supabase.auth.updateUser({ password }).
+Mengembalikan pesan sukses atau pesan error yang jelas.
+app/admin/password/page.jsx:
+Menghubungkan form ke Server Action gantiPassword menggunakan useActionState.
+Menampilkan notifikasi error (state.error) atau notifikasi berhasil (state.success).
+Menghapus komponen CatatanBelumAktif dan mempertahankan seluruh tampilan form yang sudah ada.**
 
 **Perbaikan:**
 

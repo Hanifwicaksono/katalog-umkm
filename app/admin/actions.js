@@ -42,3 +42,46 @@ export async function logout() {
   redirect("/admin/login");
 }
 
+export async function gantiPassword(prevStateOrFormData, maybeFormData) {
+  const formData =
+    maybeFormData instanceof FormData ? maybeFormData : prevStateOrFormData;
+
+  const passwordBaru = formData?.get ? formData.get("password_baru") : null;
+  const konfirmasiPassword = formData?.get
+    ? formData.get("konfirmasi_password")
+    : null;
+
+  if (!passwordBaru || String(passwordBaru).length < 8) {
+    return { error: "Password baru minimal 8 karakter." };
+  }
+
+  if (passwordBaru !== konfirmasiPassword) {
+    return { error: "Konfirmasi password tidak sama." };
+  }
+
+  let supabase;
+  try {
+    supabase = await buatClientSesi();
+  } catch (err) {
+    return { error: err.message || "Konfigurasi Supabase tidak valid." };
+  }
+
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  if (userError || !user) {
+    return { error: "Anda harus login terlebih dahulu." };
+  }
+
+  const { error } = await supabase.auth.updateUser({
+    password: String(passwordBaru),
+  });
+
+  if (error) {
+    return { error: error.message || "Gagal memperbarui password." };
+  }
+
+  return { success: "Password berhasil diperbarui." };
+}
