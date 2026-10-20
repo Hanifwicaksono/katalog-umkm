@@ -274,6 +274,22 @@ Mempertahankan urutan saat pencarian dihapus.**
 
 **Perbaikan:**
 
+## US-16 Paginasi produk
+
+**Prompt: Baca docs/user-stories.md bagian US-16.
+
+Batasi katalog menjadi 12 produk per halaman menggunakan range pada query Supabase dan count exact untuk menghitung jumlah halaman. Tambahkan navigasi sebelumnya dan berikutnya, simpan halaman di URL, pertahankan pencarian serta urutan, dan tangani nomor halaman di luar batas.**
+
+**Hasil: Pekerjaan untuk US-16: Paginasi produk telah selesai.
+
+File yang Diubah
+app/page.jsx:
+Membatasi query Supabase menjadi 12 produk dengan range dan mengambil jumlah data memakai count exact.
+Menambahkan navigasi halaman yang mempertahankan pencarian dan urutan.
+Memvalidasi nomor halaman serta mengarahkan halaman di luar batas ke halaman terakhir.**
+
+**Perbaikan:**
+
 ## Debugging dan fitur bonus
 
 Tambahkan bagian baru untuk setiap error yang kamu perbaiki atau fitur bonus yang kamu kerjakan.

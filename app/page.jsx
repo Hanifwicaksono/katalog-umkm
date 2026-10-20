@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import KartuProduk from "@/components/KartuProduk";
 import Input from "@/components/Input";
 import Tombol from "@/components/Tombol";
@@ -5,19 +6,23 @@ import { toko } from "@/lib/toko";
 import { buatClientServer } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
+const PRODUK_PER_HALAMAN = 12;
 
 export default async function HalamanKatalog({ searchParams }) {
-  const { cari, urut } = await searchParams;
+  const { cari, urut, halaman } = await searchParams;
   const kataKunci = typeof cari === "string" ? cari.trim().slice(0, 100) : "";
   const urutan = ["termurah", "termahal", "terbaru"].includes(urut) ? urut : "terbaru";
+  const nomorHalaman = Number.parseInt(halaman, 10);
+  const halamanAktif = Number.isSafeInteger(nomorHalaman) && nomorHalaman > 0 ? nomorHalaman : 1;
   let daftarProduk = [];
+  let jumlahProduk = 0;
   let pesanError = null;
 
   try {
     const supabase = buatClientServer();
     let query = supabase
       .from("produk")
-      .select("*");
+      .select("*", { count: "exact" });
 
     if (kataKunci) {
       query = query.ilike("nama", `%${kataKunci}%`);
@@ -31,15 +36,33 @@ export default async function HalamanKatalog({ searchParams }) {
       query = query.order("created_at", { ascending: false }).order("id", { ascending: false });
     }
 
-    const { data, error } = await query;
+    const mulai = (halamanAktif - 1) * PRODUK_PER_HALAMAN;
+    const { data, error, count } = await query.range(
+      mulai,
+      mulai + PRODUK_PER_HALAMAN - 1
+    );
 
     if (error) {
       pesanError = error.message;
     } else {
       daftarProduk = data || [];
+      jumlahProduk = count || 0;
     }
   } catch (err) {
     pesanError = err.message || "Gagal mengambil data produk dari database.";
+  }
+
+  const jumlahHalaman = Math.max(1, Math.ceil(jumlahProduk / PRODUK_PER_HALAMAN));
+  const buatUrlHalaman = (tujuan) => {
+    const query = new URLSearchParams();
+    if (kataKunci) query.set("cari", kataKunci);
+    query.set("urut", urutan);
+    if (tujuan > 1) query.set("halaman", String(tujuan));
+    return `/?${query.toString()}`;
+  };
+
+  if (!pesanError && halamanAktif > jumlahHalaman) {
+    redirect(buatUrlHalaman(jumlahHalaman));
   }
 
   return (
@@ -96,11 +119,34 @@ export default async function HalamanKatalog({ searchParams }) {
             {kataKunci ? "Produk tidak ditemukan" : "Belum ada produk"}
           </p>
         ) : (
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
-            {daftarProduk.map((produk) => (
-              <KartuProduk key={produk.id} produk={produk} />
-            ))}
-          </div>
+          <>
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+              {daftarProduk.map((produk) => (
+                <KartuProduk key={produk.id} produk={produk} />
+              ))}
+            </div>
+            {jumlahHalaman > 1 && (
+              <nav aria-label="Navigasi halaman produk" className="flex items-center justify-between gap-3">
+                {halamanAktif > 1 ? (
+                  <Tombol href={buatUrlHalaman(halamanAktif - 1)} varian="garis">
+                    Sebelumnya
+                  </Tombol>
+                ) : (
+                  <span />
+                )}
+                <p className="text-sm text-teks-lembut">
+                  Halaman {halamanAktif} dari {jumlahHalaman}
+                </p>
+                {halamanAktif < jumlahHalaman ? (
+                  <Tombol href={buatUrlHalaman(halamanAktif + 1)} varian="garis">
+                    Berikutnya
+                  </Tombol>
+                ) : (
+                  <span />
+                )}
+              </nav>
+            )}
+          </>
         )}
       </section>
     </>
