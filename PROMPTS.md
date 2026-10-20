@@ -208,6 +208,22 @@ Menampilkan pesan "Produk tidak ditemukan" serta tombol untuk menghapus pencaria
 
 **Perbaikan:**
 
+## US-12 Pilih jumlah
+
+**Prompt: Baca docs/user-stories.md bagian US-12.
+
+Tambahkan pilihan jumlah minimal satu pada tombol pemesanan di halaman detail produk. Pastikan jumlah yang dipilih ikut tertulis dalam pesan WhatsApp bersama nama dan harga satuan produk. Pertahankan nomor toko, encoding pesan, serta perilaku membuka WhatsApp di tab baru.**
+
+**Hasil: Pekerjaan untuk US-12: Pilih jumlah telah selesai.
+
+File yang Diubah
+components/TombolWhatsApp.jsx:
+Menambahkan input jumlah minimal satu dengan state di browser.
+Memasukkan jumlah yang dipilih, nama produk, dan harga satuan ke pesan WhatsApp yang sudah di-encode.
+Mempertahankan nomor toko dan pembukaan WhatsApp di tab baru.**
+
+**Perbaikan:**
+
 ## Debugging dan fitur bonus
 
 Tambahkan bagian baru untuk setiap error yang kamu perbaiki atau fitur bonus yang kamu kerjakan.
