@@ -192,6 +192,22 @@ Menampilkan pesan error jika aksi penghapusan gagal.**
 
 **Perbaikan:**
 
+## US-11 Pencarian produk
+
+**Prompt: Baca docs/user-stories.md bagian US-11.
+
+Tambahkan pencarian nama produk di halaman katalog. Simpan kata kunci di URL dan terapkan pencarian pada query Supabase di server. Gunakan komponen Input dan Tombol yang sudah ada, sediakan aksi untuk menghapus pencarian, dan tampilkan pesan jika tidak ada hasil.**
+
+**Hasil: Pekerjaan untuk US-11: Pencarian produk telah selesai.
+
+File yang Diubah
+app/page.jsx:
+Menambahkan form pencarian nama produk dengan komponen yang sudah ada.
+Membaca kata kunci dari URL, membatasi panjangnya, dan menerapkan filter ilike pada query Supabase di server.
+Menampilkan pesan "Produk tidak ditemukan" serta tombol untuk menghapus pencarian.**
+
+**Perbaikan:**
+
 ## Debugging dan fitur bonus
 
 Tambahkan bagian baru untuk setiap error yang kamu perbaiki atau fitur bonus yang kamu kerjakan.
