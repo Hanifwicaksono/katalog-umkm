@@ -224,6 +224,22 @@ Mempertahankan nomor toko dan pembukaan WhatsApp di tab baru.**
 
 **Perbaikan:**
 
+## US-13 PWA
+
+**Prompt: Baca docs/user-stories.md bagian US-13.
+
+Buat web app manifest dengan dukungan metadata bawaan Next.js agar katalog dapat dipasang ke layar utama. Tautkan manifest dari metadata aplikasi dan gunakan ikon 192x192 serta 512x512 yang sudah tersedia di public/icons. Jangan memasang paket baru.**
+
+**Hasil: Pekerjaan untuk US-13: PWA telah selesai.
+
+File yang Dibuat dan Diubah
+app/manifest.js (Baru):
+Menyediakan nama, deskripsi, start URL, mode standalone, warna aplikasi, bahasa, dan referensi ikon 192x192 serta 512x512.
+app/layout.jsx:
+Menautkan /manifest.webmanifest melalui metadata aplikasi.**
+
+**Perbaikan:**
+
 ## Debugging dan fitur bonus
 
 Tambahkan bagian baru untuk setiap error yang kamu perbaiki atau fitur bonus yang kamu kerjakan.
