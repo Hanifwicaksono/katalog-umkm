@@ -290,6 +290,22 @@ Memvalidasi nomor halaman serta mengarahkan halaman di luar batas ke halaman ter
 
 **Perbaikan:**
 
+## US-17 Produk terkait
+
+**Prompt: Baca docs/user-stories.md bagian US-17.
+
+Tambahkan bagian produk terkait di halaman detail. Ambil maksimal tiga produk lain dari kategori yang sama melalui query Supabase, kecualikan produk yang sedang dibuka, gunakan KartuProduk yang sudah ada, dan sembunyikan bagian jika tidak ada hasil.**
+
+**Hasil: Pekerjaan untuk US-17: Produk terkait telah selesai.
+
+File yang Diubah
+app/produk/[id]/page.jsx:
+Mengambil maksimal tiga produk dari kategori yang sama melalui Supabase.
+Mengecualikan id produk yang sedang dibuka.
+Menampilkan hasil dengan KartuProduk dan menyembunyikan bagian saat hasil kosong.**
+
+**Perbaikan:**
+
 ## Debugging dan fitur bonus
 
 Tambahkan bagian baru untuk setiap error yang kamu perbaiki atau fitur bonus yang kamu kerjakan.
